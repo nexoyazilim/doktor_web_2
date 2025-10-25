@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, lazy, Suspense, useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import BackToTop from './components/BackToTop';
+import LoadingScreen from './components/LoadingScreen';
 import { PageTransition } from './components/animations/AnimatedSection';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -29,6 +30,16 @@ function ScrollToTop() {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return <LoadingScreen onComplete={handleLoadingComplete} />;
+  }
+
   return (
     <Router basename="/doktor_web_2">
       <ScrollToTop />
