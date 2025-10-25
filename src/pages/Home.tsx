@@ -258,37 +258,37 @@ export default function Home() {
                 title: "Burun Estetiği",
                 description: "Doğal ve estetik burun görünümü için modern rinoplasti teknikleri",
                 image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/bntdvsi.webp`,
-                link: "/doktor_web_2/uzmanlik/rinoplasti"
+                link: "/uzmanlik/rinoplasti"
               },
               {
                 title: "Meme Estetiği",
                 description: "Meme büyütme, küçültme ve dikleştirme operasyonları",
                 image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/cltbkm.webp`,
-                link: "/doktor_web_2/uzmanlik/meme-buyutme"
+                link: "/uzmanlik/meme-buyutme"
               },
               {
                 title: "Liposuction",
                 description: "Bölgesel yağ alma ve vücut kontürü düzenleme",
                 image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/alnskllndrme.webp`,
-                link: "/doktor_web_2/uzmanlik/liposuction"
+                link: "/uzmanlik/liposuction"
               },
               {
                 title: "Yüz Gençleştirme",
                 description: "Yüz germe ve minimal invaziv gençleştirme teknikleri",
                 image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/frksynellazer.webp`,
-                link: "/doktor_web_2/uzmanlik/yuz-germe"
+                link: "/uzmanlik/yuz-germe"
               },
               {
                 title: "Botoks & Dolgu",
                 description: "Kırışıklık tedavisi ve yüz hatlarını belirginleştirme",
                 image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/bntdvsi.webp`,
-                link: "/doktor_web_2/uzmanlik/botoks"
+                link: "/uzmanlik/botoks"
               },
               {
                 title: "Saç Ekimi",
                 description: "FUE tekniği ile doğal saç çizgisi oluşturma",
                 image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/alnskllndrme.webp`,
-                link: "/doktor_web_2/uzmanlik/sac-ekimi"
+                link: "/uzmanlik/sac-ekimi"
               }
             ].map((service, index) => (
               <StaggeredItem key={index}>

@@ -159,7 +159,7 @@ export default function Header() {
             {/* CTA Button */}
             <div className="flex-shrink-0">
               <Link
-                to="/doktor_web_2/iletisim"
+                to="/iletisim"
                 className="bg-[#2E8B57] text-white px-6 py-3 rounded-lg text-sm font-bold hover:bg-[#2E8B57]/90 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 Randevu Al
@@ -178,7 +178,7 @@ export default function Header() {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <Link to="/doktor_web_2/" className="flex items-center gap-4 text-gray-900">
+            <Link to="/" className="flex items-center gap-4 text-gray-900">
               <motion.div 
                 className="w-8 h-8"
                 whileHover={{ scale: 1.1 }}
@@ -197,7 +197,7 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-9">
             <Link
-              to="/doktor_web_2/"
+              to="/"
               className={`text-sm font-medium transition-colors ${
                 isActive('/doktor_web_2/') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
               }`}
@@ -205,7 +205,7 @@ export default function Header() {
               Ana Sayfa
             </Link>
             <Link
-              to="/doktor_web_2/hakkimda"
+              to="/hakkimda"
               className={`text-sm font-medium transition-colors ${
                 isActive('/doktor_web_2/hakkimda') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
               }`}
@@ -213,7 +213,7 @@ export default function Header() {
               Hakkımda
             </Link>
             <Link
-              to="/doktor_web_2/calismalar"
+              to="/calismalar"
               className={`text-sm font-medium transition-colors ${
                 isActive('/calismalar') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
               }`}
@@ -271,7 +271,7 @@ export default function Header() {
             </div>
             
             <Link
-              to="/doktor_web_2/akademik"
+              to="/akademik"
               className={`text-sm font-medium transition-colors ${
                 isActive('/akademik') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
               }`}
@@ -280,7 +280,7 @@ export default function Header() {
             </Link>
             
             <Link
-              to="/doktor_web_2/blog"
+              to="/blog"
               className={`text-sm font-medium transition-colors ${
                 isActive('/blog') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
               }`}
@@ -311,21 +311,21 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="md:hidden pb-4 space-y-3">
             <Link
-              to="/doktor_web_2/"
+              to="/"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
             >
               Ana Sayfa
             </Link>
             <Link
-              to="/doktor_web_2/hakkimda"
+              to="/hakkimda"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
             >
               Hakkımda
             </Link>
             <Link
-              to="/doktor_web_2/calismalar"
+              to="/calismalar"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
             >
@@ -360,7 +360,7 @@ export default function Header() {
             </div>
             
             <Link
-              to="/doktor_web_2/akademik"
+              to="/akademik"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
             >
@@ -368,7 +368,7 @@ export default function Header() {
             </Link>
             
             <Link
-              to="/doktor_web_2/blog"
+              to="/blog"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
             >

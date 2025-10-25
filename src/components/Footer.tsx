@@ -71,37 +71,37 @@ export default function Footer() {
               <h4 className="text-xl font-bold mb-6">MENÜ</h4>
               <ul className="space-y-3">
                 <li>
-                  <Link to="/doktor_web_2/hakkimda" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/hakkimda" className="text-gray-300 hover:text-white transition-colors">
                     Hakkımda
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/akademik" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/akademik" className="text-gray-300 hover:text-white transition-colors">
                     Akademik
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/uzmanlik/rinoplasti" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/uzmanlik/rinoplasti" className="text-gray-300 hover:text-white transition-colors">
                     Uzmanlık Alanlarım
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/blog" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/blog" className="text-gray-300 hover:text-white transition-colors">
                     Blog
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/calismalar" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/calismalar" className="text-gray-300 hover:text-white transition-colors">
                     Fotoğraf Galerisi
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/calismalar" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/calismalar" className="text-gray-300 hover:text-white transition-colors">
                     Video Galerisi
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/iletisim" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/iletisim" className="text-gray-300 hover:text-white transition-colors">
                     İletişim
                   </Link>
                 </li>
@@ -158,52 +158,52 @@ export default function Footer() {
               <h4 className="text-xl font-bold mb-6">UZMANLIK ALANLARI</h4>
               <ul className="space-y-3">
                 <li>
-                  <Link to="/doktor_web_2/uzmanlik/rinoplasti" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/uzmanlik/rinoplasti" className="text-gray-300 hover:text-white transition-colors">
                     Burun Estetiği (Rinoplasti)
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/uzmanlik/meme-buyutme" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/uzmanlik/meme-buyutme" className="text-gray-300 hover:text-white transition-colors">
                     Meme Büyütme
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/uzmanlik/meme-kucultme" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/uzmanlik/meme-kucultme" className="text-gray-300 hover:text-white transition-colors">
                     Meme Küçültme
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/uzmanlik/liposuction" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/uzmanlik/liposuction" className="text-gray-300 hover:text-white transition-colors">
                     Liposuction (Yağ Aldırma)
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/uzmanlik/karin-germe" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/uzmanlik/karin-germe" className="text-gray-300 hover:text-white transition-colors">
                     Karın Germe (Abdominoplasti)
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/uzmanlik/yuz-germe" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/uzmanlik/yuz-germe" className="text-gray-300 hover:text-white transition-colors">
                     Yüz Germe
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/uzmanlik/goz-kapagi-estetigi" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/uzmanlik/goz-kapagi-estetigi" className="text-gray-300 hover:text-white transition-colors">
                     Göz Kapağı Estetiği
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/uzmanlik/botoks" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/uzmanlik/botoks" className="text-gray-300 hover:text-white transition-colors">
                     Botoks Uygulaması
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/uzmanlik/dolgu" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/uzmanlik/dolgu" className="text-gray-300 hover:text-white transition-colors">
                     Dolgu Uygulaması
                   </Link>
                 </li>
                 <li>
-                  <Link to="/doktor_web_2/uzmanlik/sac-ekimi" className="text-gray-300 hover:text-white transition-colors">
+                  <Link to="/uzmanlik/sac-ekimi" className="text-gray-300 hover:text-white transition-colors">
                     Saç Ekimi
                   </Link>
                 </li>

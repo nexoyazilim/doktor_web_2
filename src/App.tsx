@@ -30,45 +30,45 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <Router>
+    <Router basename="/doktor_web_2">
       <ScrollToTop />
       <div className="min-h-screen bg-white flex flex-col">
         <Header />
         <Routes>
-          <Route path="/doktor_web_2/" element={<PageTransition><Home /></PageTransition>} />
-          <Route path="/doktor_web_2/hakkimda" element={<PageTransition><About /></PageTransition>} />
-          <Route path="/doktor_web_2/calismalar" element={<PageTransition><Works /></PageTransition>} />
-          <Route path="/doktor_web_2/calismalar/:id" element={
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/hakkimda" element={<PageTransition><About /></PageTransition>} />
+          <Route path="/calismalar" element={<PageTransition><Works /></PageTransition>} />
+          <Route path="/calismalar/:id" element={
             <PageTransition>
               <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#2E8B57]"></div></div>}>
                 <WorkDetail />
               </Suspense>
             </PageTransition>
           } />
-          <Route path="/doktor_web_2/uzmanlik/:specialization" element={
+          <Route path="/uzmanlik/:specialization" element={
             <PageTransition>
               <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#2E8B57]"></div></div>}>
                 <SpecializationPage />
               </Suspense>
             </PageTransition>
           } />
-          <Route path="/doktor_web_2/akademik" element={<PageTransition><Academic /></PageTransition>} />
-          <Route path="/doktor_web_2/akademik/makale/:id" element={
+          <Route path="/akademik" element={<PageTransition><Academic /></PageTransition>} />
+          <Route path="/akademik/makale/:id" element={
             <PageTransition>
               <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#2E8B57]"></div></div>}>
                 <PublicationDetail />
               </Suspense>
             </PageTransition>
           } />
-          <Route path="/doktor_web_2/blog" element={<PageTransition><Blog /></PageTransition>} />
-          <Route path="/doktor_web_2/blog/:id" element={
+          <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+          <Route path="/blog/:id" element={
             <PageTransition>
               <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#2E8B57]"></div></div>}>
                 <BlogDetail />
               </Suspense>
             </PageTransition>
           } />
-          <Route path="/doktor_web_2/iletisim" element={<PageTransition><Contact /></PageTransition>} />
+          <Route path="/iletisim" element={<PageTransition><Contact /></PageTransition>} />
         </Routes>
         <Footer />
         <BackToTop />
