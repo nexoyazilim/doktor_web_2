@@ -1,0 +1,390 @@
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, ChevronDown, Phone, Mail } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+
+export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [specializationsOpen, setSpecializationsOpen] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const location = useLocation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const isActive = (path: string) => location.pathname === path;
+
+  const specializations = [
+    { name: 'Burun Estetiği (Rinoplasti)', path: '/uzmanlik/rinoplasti' },
+    { name: 'Meme Büyütme', path: '/uzmanlik/meme-buyutme' },
+    { name: 'Meme Küçültme', path: '/uzmanlik/meme-kucultme' },
+    { name: 'Liposuction (Yağ Aldırma)', path: '/uzmanlik/liposuction' },
+    { name: 'Karın Germe (Abdominoplasti)', path: '/uzmanlik/karin-germe' },
+    { name: 'Yüz Germe', path: '/uzmanlik/yuz-germe' },
+    { name: 'Göz Kapağı Estetiği', path: '/uzmanlik/goz-kapagi-estetigi' },
+    { name: 'Botoks Uygulaması', path: '/uzmanlik/botoks' },
+    { name: 'Dolgu Uygulaması', path: '/uzmanlik/dolgu' },
+    { name: 'Saç Ekimi', path: '/uzmanlik/sac-ekimi' },
+    { name: 'Meme Dikleştirme', path: '/uzmanlik/meme-diklestirme' },
+    { name: 'Vücut Kontürü', path: '/uzmanlik/vucut-konturu' }
+  ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setSpecializationsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Handle window resize
+  useEffect(() => {
+    const onResize = () => {
+      // Handle responsive behavior if needed
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  // Reset scroll position and close menus on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setIsHeaderVisible(true);
+    setMobileMenuOpen(false);
+    setSpecializationsOpen(false);
+  }, [location.pathname]);
+
+  // Auto-hide header on scroll
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const scrollDifference = Math.abs(currentScrollY - lastScrollY);
+          
+          if (scrollDifference < 3) {
+            ticking = false;
+            return;
+          }
+          
+          if (currentScrollY > lastScrollY && currentScrollY > 120) {
+            if (isHeaderVisible) {
+              setIsHeaderVisible(false);
+            }
+          } else if (currentScrollY <= 5) {
+            if (!isHeaderVisible) {
+              setIsHeaderVisible(true);
+            }
+          }
+          
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isHeaderVisible]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const body = document.body;
+    if (mobileMenuOpen && window.innerWidth < 900) {
+      const scrollY = window.scrollY;
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollY}px`;
+      body.style.left = '0';
+      body.style.right = '0';
+      body.style.width = '100%';
+      body.style.overflow = 'hidden';
+    } else {
+      const top = body.style.top;
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+      body.style.overflow = '';
+      if (top) {
+        const y = parseInt(top || '0', 10) * -1;
+        window.scrollTo(0, y);
+      }
+    }
+  }, [mobileMenuOpen]);
+
+  return (
+    <motion.header 
+      className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      {/* Top Header Bar */}
+      <div 
+        className={`bg-white border-b border-gray-200 transition-all duration-300 ${
+          !isHeaderVisible ? 'h-0 overflow-hidden opacity-0' : 'h-auto opacity-100'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="flex flex-col sm:flex-row items-center justify-between py-4 sm:py-3 gap-3 sm:gap-0">
+            {/* Contact Info */}
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-8">
+              <div className="flex items-center space-x-3 text-sm sm:text-base">
+                <Phone className="w-5 h-5 text-[#2E8B57]" />
+                <a href="tel:+905353084466" className="hover:text-[#2E8B57] transition-colors font-medium text-gray-700">
+                  0535 308 44 66
+                </a>
+              </div>
+              <div className="flex items-center space-x-3 text-sm sm:text-base">
+                <Mail className="w-5 h-5 text-[#2E8B57]" />
+                <a href="mailto:info@demo.com" className="hover:text-[#2E8B57] transition-colors font-medium text-gray-700">
+                  info@demo.com
+                </a>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="flex-shrink-0">
+              <Link
+                to="/doktor_web_2/iletisim"
+                className="bg-[#2E8B57] text-white px-6 py-3 rounded-lg text-sm font-bold hover:bg-[#2E8B57]/90 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                Randevu Al
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="flex items-center justify-between py-4">
+          {/* Logo */}
+          <motion.div
+            whileHover={{ scale: 1.05, rotate: 5 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <Link to="/doktor_web_2/" className="flex items-center gap-4 text-gray-900">
+              <motion.div 
+                className="w-8 h-8"
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <img 
+                  src={`${import.meta.env.BASE_URL}images/doktor_logo.webp`}
+                  alt="Dr. Elif Aydın Logo" 
+                  className="w-full h-full object-contain"
+                />
+              </motion.div>
+              <h2 className="text-xl font-bold tracking-tight">Dr. Elif Aydın</h2>
+            </Link>
+          </motion.div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-9">
+            <Link
+              to="/doktor_web_2/"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/doktor_web_2/') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
+              }`}
+            >
+              Ana Sayfa
+            </Link>
+            <Link
+              to="/doktor_web_2/hakkimda"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/doktor_web_2/hakkimda') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
+              }`}
+            >
+              Hakkımda
+            </Link>
+            <Link
+              to="/doktor_web_2/calismalar"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/calismalar') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
+              }`}
+            >
+              Çalışmalar
+            </Link>
+            
+            {/* Specializations Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setSpecializationsOpen(!specializationsOpen)}
+                className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+                  specializations.some(spec => isActive(spec.path)) 
+                    ? 'text-[#2E8B57] font-bold' 
+                    : 'text-gray-900 hover:text-[#2E8B57]'
+                }`}
+              >
+                Uzmanlık Alanlarım
+                <ChevronDown className={`w-4 h-4 transition-transform ${specializationsOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {specializationsOpen && (
+                <div className="absolute top-full left-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div className="px-4 py-3 border-b border-gray-100">
+                    <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide">UZMANLIK ALANLARIM</h3>
+                  </div>
+                  <div className="max-h-96 overflow-y-auto">
+                    {specializations.map((spec, index) => (
+                      <div key={spec.path}>
+                        <Link
+                          to={spec.path}
+                          onClick={() => setSpecializationsOpen(false)}
+                          className={`block px-4 py-3 text-sm transition-colors relative ${
+                            isActive(spec.path)
+                              ? 'bg-blue-50 text-blue-600'
+                              : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                          }`}
+                        >
+                          {isActive(spec.path) && (
+                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600"></div>
+                          )}
+                          <span className={`inline-block w-2 h-2 rounded-full mr-3 ${
+                            isActive(spec.path) ? 'bg-blue-600' : 'bg-gray-400'
+                          }`}></span>
+                          {spec.name}
+                        </Link>
+                        {index < specializations.length - 1 && (
+                          <div className="border-b border-gray-100 mx-4"></div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            
+            <Link
+              to="/doktor_web_2/akademik"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/akademik') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
+              }`}
+            >
+              Akademik
+            </Link>
+            
+            <Link
+              to="/doktor_web_2/blog"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/blog') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
+              }`}
+            >
+              Blog
+            </Link>
+            
+            <Link
+              to="/doktor_web_2/iletisim"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/iletisim') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
+              }`}
+            >
+              İletişim
+            </Link>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden flex items-center justify-center"
+          >
+            <Menu className="w-6 h-6 text-gray-900" />
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden pb-4 space-y-3">
+            <Link
+              to="/doktor_web_2/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
+            >
+              Ana Sayfa
+            </Link>
+            <Link
+              to="/doktor_web_2/hakkimda"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
+            >
+              Hakkımda
+            </Link>
+            <Link
+              to="/doktor_web_2/calismalar"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
+            >
+              Çalışmalar
+            </Link>
+            
+            {/* Mobile Specializations */}
+            <div className="border-t border-gray-200 pt-3">
+              <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3 px-2">UZMANLIK ALANLARIM</h3>
+              <div className="space-y-1">
+                {specializations.map((spec) => (
+                  <Link
+                    key={spec.path}
+                    to={spec.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block px-2 py-3 text-sm transition-colors relative ${
+                      isActive(spec.path)
+                        ? 'bg-blue-50 text-blue-600'
+                        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                    }`}
+                  >
+                    {isActive(spec.path) && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600"></div>
+                    )}
+                    <span className={`inline-block w-2 h-2 rounded-full mr-3 ${
+                      isActive(spec.path) ? 'bg-blue-600' : 'bg-gray-400'
+                    }`}></span>
+                    {spec.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            
+            <Link
+              to="/doktor_web_2/akademik"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
+            >
+              Akademik
+            </Link>
+            
+            <Link
+              to="/doktor_web_2/blog"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
+            >
+              Blog
+            </Link>
+            
+            <Link
+              to="/doktor_web_2/iletisim"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
+            >
+              İletişim
+            </Link>
+          </div>
+        )}
+      </div>
+    </motion.header>
+  );
+}
