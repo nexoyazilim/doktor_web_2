@@ -534,11 +534,11 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#2E8B57] text-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#2E8B57] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection direction="up">
             <motion.h2 
-              className="text-4xl md:text-5xl font-bold mb-6"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 px-4 leading-tight"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -547,7 +547,7 @@ export default function Home() {
               Hayalinizdeki Görünüme Kavuşun
             </motion.h2>
             <motion.p 
-              className="text-xl mb-8 max-w-3xl mx-auto"
+              className="text-base sm:text-lg md:text-xl mb-8 max-w-3xl mx-auto px-4 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -557,7 +557,7 @@ export default function Home() {
               Randevu alarak ücretsiz konsültasyon için bizimle iletişime geçin.
             </motion.p>
             <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-4 justify-center px-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -570,7 +570,7 @@ export default function Home() {
               >
                 <Link
                   to="/iletisim"
-                  className="bg-white text-[#2E8B57] hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 magnetic-hover"
+                  className="bg-white text-[#2E8B57] hover:bg-gray-100 px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-bold transition-all duration-300 magnetic-hover w-full sm:w-auto text-center"
                 >
                   Randevu Al
                 </Link>
@@ -582,7 +582,7 @@ export default function Home() {
               >
                 <Link
                   to="/akademik"
-                  className="border-2 border-white text-white hover:bg-white hover:text-[#2E8B57] px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 magnetic-hover"
+                  className="border-2 border-white text-white hover:bg-white hover:text-[#2E8B57] px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-bold transition-all duration-300 magnetic-hover w-full sm:w-auto text-center"
                 >
                   Akademik Çalışmalarım
                 </Link>
