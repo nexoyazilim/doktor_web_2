@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayfa Bulunamadı - Dr. Elif Aydın</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2E8B57;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #2E8B57;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #228B22;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>404 - Sayfa Bulunamadı</h1>
+        <p>Aradığınız sayfa bulunamadı. Sayfa taşınmış veya silinmiş olabilir.</p>
+        <a href="/doktor_web_2/" class="btn">Ana Sayfaya Dön</a>
+    </div>
+    
+    <script>
+        // GitHub Pages için SPA routing düzeltmesi
+        const pathSegmentsToKeep = 1;
+        
+        const l = window.location;
+        l.replace(
+            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+            l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+            l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+            (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+            l.hash
+        );
+    </script>
+</body>
+</html>

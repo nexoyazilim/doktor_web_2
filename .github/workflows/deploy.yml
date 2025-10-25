@@ -33,6 +33,11 @@ jobs:
       - name: Build
         run: npm run build
         
+      - name: Create 404.html for GitHub Pages
+        run: |
+          cp dist/index.html dist/404.html
+          echo "404.html created for GitHub Pages SPA routing"
+        
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
