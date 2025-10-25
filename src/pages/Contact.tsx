@@ -374,70 +374,7 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* Google Maps Bölümü */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Konumumuz</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Ataşehir, İstanbul'da modern ve konforlu kliniğimizde sizleri ağırlamaktan mutluluk duyarız.
-            </p>
-          </div>
-          
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div className="aspect-w-16 aspect-h-9">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.2798118983!2d29.1006!3d40.9926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7650656bd63%3A0x8ca058b28c20b6c3!2sAtaşehir%2C%20İstanbul!5e0!3m2!1str!2str!4v1234567890123!5m2!1str!2str"
-                width="100%"
-                height="450"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Dr. Elif Aydın Klinik Konumu - Ataşehir, İstanbul"
-              ></iframe>
-            </div>
-            
-            <div className="p-8">
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-[#2E8B57] rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <MapPin className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Adres</h3>
-                  <p className="text-gray-600">
-                    Barbaros Mahallesi<br />
-                    Atatürk Caddesi No:123<br />
-                    Ataşehir/İstanbul
-                  </p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-[#2E8B57] rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <Clock className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Çalışma Saatleri</h3>
-                  <p className="text-gray-600">
-                    Pazartesi - Cuma: 08:30 - 22:00<br />
-                    Cumartesi - Pazar: 10:00 - 18:00
-                  </p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-[#2E8B57] rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <Phone className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">İletişim</h3>
-                  <p className="text-gray-600">
-                    Telefon: 0535 308 44 66<br />
-                    E-posta: info@demo.com
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
     </div>
   );
 }
