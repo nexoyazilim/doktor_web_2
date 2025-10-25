@@ -10,10 +10,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [loadingText, setLoadingText] = useState('Yükleniyor...');
 
   const loadingSteps = [
-    { text: 'Sistem başlatılıyor...', progress: 20 },
-    { text: 'Veriler yükleniyor...', progress: 40 },
-    { text: 'İçerik hazırlanıyor...', progress: 60 },
-    { text: 'Son kontroller yapılıyor...', progress: 80 },
+    { text: 'Sistem başlatılıyor...', progress: 30 },
+    { text: 'Veriler yükleniyor...', progress: 60 },
     { text: 'Hoş geldiniz!', progress: 100 }
   ];
 
@@ -30,7 +28,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           onComplete();
         }, 500);
       }
-    }, 800);
+    }, 500);
 
     return () => clearInterval(interval);
   }, [onComplete]);
@@ -50,35 +48,23 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-8"
         >
-          <div className="w-32 h-32 mx-auto mb-8 bg-white rounded-full flex items-center justify-center shadow-2xl relative">
+          <div className="w-32 h-32 mx-auto mb-8 bg-white rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden">
             {/* Pulse Effect */}
             <motion.div
               className="absolute inset-0 bg-[#2E8B57]/20 rounded-full"
-              animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0, 0.3] }}
+              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0, 0.3] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
             
-            {/* Main Logo */}
-            <motion.div
-              className="w-20 h-20 bg-gradient-to-br from-[#2E8B57] to-[#228B22] rounded-full flex items-center justify-center shadow-lg relative z-10"
-              animate={{ 
-                rotate: [0, 360],
-                scale: [1, 1.05, 1]
-              }}
-              transition={{ 
-                rotate: { duration: 3, repeat: Infinity, ease: "linear" },
-                scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-              }}
-            >
-              {/* Medical Cross Icon */}
-              <svg
-                className="w-12 h-12 text-white"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-              </svg>
-            </motion.div>
+            {/* Real Logo */}
+            <motion.img
+              src="/doktor_web_2/images/doktor_logo.webp"
+              alt="Dr. Elif Aydın Logo"
+              className="w-24 h-24 object-contain relative z-10"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            />
           </div>
           
           <motion.h1
@@ -121,7 +107,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           className="w-96 mx-auto mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
+          transition={{ delay: 0.5 }}
         >
           <div className="bg-white/20 rounded-full h-4 overflow-hidden shadow-inner">
             <motion.div
@@ -164,7 +150,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           className="flex justify-center space-x-12"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
+          transition={{ delay: 0.6 }}
         >
           {[
             { icon: "🏥", label: "Hastane", color: "text-blue-200" },
@@ -177,19 +163,18 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
               className="text-center group"
               initial={{ scale: 0, y: 20 }}
               animate={{ scale: 1, y: 0 }}
-              transition={{ delay: 1.4 + index * 0.1, duration: 0.5 }}
+              transition={{ delay: 0.8 + index * 0.05, duration: 0.3 }}
               whileHover={{ scale: 1.15, y: -5 }}
             >
               <motion.div
                 className="text-4xl mb-2 group-hover:drop-shadow-lg"
                 animate={{ 
-                  y: [0, -5, 0],
-                  rotate: [0, 5, 0]
+                  y: [0, -3, 0]
                 }}
                 transition={{ 
-                  duration: 2, 
+                  duration: 1.5, 
                   repeat: Infinity, 
-                  delay: index * 0.2,
+                  delay: index * 0.1,
                   ease: "easeInOut"
                 }}
               >
