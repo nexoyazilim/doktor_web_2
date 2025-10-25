@@ -575,18 +575,7 @@ export default function Home() {
                   Randevu Al
                 </Link>
               </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05, rotateY: -5 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <Link
-                  to="/akademik"
-                  className="border-2 border-white text-white hover:bg-white hover:text-[#2E8B57] px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-bold transition-all duration-300 magnetic-hover w-full sm:w-auto text-center"
-                >
-                  Akademik Çalışmalarım
-                </Link>
-              </motion.div>
+              
             </motion.div>
           </AnimatedSection>
         </div>
