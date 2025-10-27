@@ -69,25 +69,12 @@ export default function Header() {
     if (typeof window === 'undefined') return;
     const body = document.body;
     if (mobileMenuOpen && window.innerWidth < 900) {
-      const scrollY = window.scrollY;
-      body.style.position = 'fixed';
-      body.style.top = `-${scrollY}px`;
-      body.style.left = '0';
-      body.style.right = '0';
-      body.style.width = '100%';
+      // Don't lock scroll, just prevent background scrolling
       body.style.overflow = 'hidden';
+      body.style.height = '100vh';
     } else {
-      const top = body.style.top;
-      body.style.position = '';
-      body.style.top = '';
-      body.style.left = '';
-      body.style.right = '';
-      body.style.width = '';
       body.style.overflow = '';
-      if (top) {
-        const y = parseInt(top || '0', 10) * -1;
-        window.scrollTo(0, y);
-      }
+      body.style.height = '';
     }
   }, [mobileMenuOpen]);
 
@@ -258,7 +245,7 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden pb-4 space-y-3">
+          <div className="md:hidden pb-4 space-y-3 max-h-[calc(100vh-80px)] overflow-y-auto">
             <Link
               to="/"
               onClick={() => setMobileMenuOpen(false)}
@@ -282,25 +269,25 @@ export default function Header() {
             </Link>
             
             {/* Mobile Specializations */}
-            <div className="border-t border-gray-200 pt-3">
+            <div className="border-t border-gray-200 pt-3 mt-3">
               <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3 px-2">{t('header.specializations').toUpperCase()}</h3>
-              <div className="space-y-1">
+              <div className="space-y-1 max-h-[400px] overflow-y-auto">
                 {specializations.map((spec) => (
                   <Link
                     key={spec.path}
                     to={spec.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-2 py-3 text-sm transition-colors relative ${
+                    className={`block px-4 py-2 text-sm transition-colors relative ${
                       isActive(spec.path)
-                        ? 'bg-blue-50 text-blue-600'
+                        ? 'bg-[#2E8B57]/10 text-[#2E8B57] font-semibold'
                         : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                     }`}
                   >
                     {isActive(spec.path) && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600"></div>
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#2E8B57]"></div>
                     )}
                     <span className={`inline-block w-2 h-2 rounded-full mr-3 ${
-                      isActive(spec.path) ? 'bg-blue-600' : 'bg-gray-400'
+                      isActive(spec.path) ? 'bg-[#2E8B57]' : 'bg-gray-400'
                     }`}></span>
                     {t(`specializations.${spec.key}`)}
                   </Link>
