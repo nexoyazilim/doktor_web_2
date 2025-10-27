@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const blogPosts = [
   {
@@ -52,22 +53,24 @@ const blogPosts = [
 ];
 
 export default function Blog() {
+  const { t } = useTranslation();
+  
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section 
-        className="relative h-96 flex items-center justify-center overflow-hidden"
+        className="relative h-96 lg:h-[500px] flex items-center justify-center overflow-hidden"
         style={{
           backgroundImage: `url('${import.meta.env.BASE_URL}images/doktor_resim_2.webp')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
+          backgroundPosition: 'center 25%',
+          backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center text-white px-4">
-          <h1 className="text-5xl md:text-6xl font-black mb-4">Blog</h1>
-          <p className="text-xl md:text-2xl text-gray-200">Estetik cerrahi hakkında güncel bilgiler ve uzman görüşleri</p>
+          <h1 className="text-5xl md:text-6xl font-black mb-4">{t('hero.blog')}</h1>
+          <p className="text-xl md:text-2xl text-gray-200">{t('hero.blogSubtitle')}</p>
         </div>
       </section>
 
@@ -109,7 +112,7 @@ export default function Blog() {
                     to={`/blog/${post.id}`}
                     className="text-[#2E8B57] font-semibold hover:text-[#2E8B57]/80 transition-colors flex items-center"
                   >
-                    Devamını Oku 
+                    {t('common.readMore')} 
                     <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -123,7 +126,7 @@ export default function Blog() {
 
         {/* Categories Section */}
         <div className="mt-20">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Kategoriler</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">{t('blog.categoriesTitle')}</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {['Yüz Estetiği', 'Liposuction', 'Cerrahi İşlemler', 'Saç Ekimi', 'Beyin Cerrahisi', 'Non-İnvaziv Estetik'].map((category, index) => (
               <div key={index} className="bg-gray-50 hover:bg-[#2E8B57] hover:text-white rounded-xl p-6 text-center transition-all duration-300 cursor-pointer group">

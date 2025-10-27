@@ -1,30 +1,36 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, ChevronDown, Phone, Mail } from 'lucide-react';
+import { Menu, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [specializationsOpen, setSpecializationsOpen] = useState(false);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const location = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem('language', lang);
+  };
 
   const isActive = (path: string) => location.pathname === path;
 
   const specializations = [
-    { name: 'Burun Estetiği (Rinoplasti)', path: '/uzmanlik/rinoplasti' },
-    { name: 'Meme Büyütme', path: '/uzmanlik/meme-buyutme' },
-    { name: 'Meme Küçültme', path: '/uzmanlik/meme-kucultme' },
-    { name: 'Liposuction (Yağ Aldırma)', path: '/uzmanlik/liposuction' },
-    { name: 'Karın Germe (Abdominoplasti)', path: '/uzmanlik/karin-germe' },
-    { name: 'Yüz Germe', path: '/uzmanlik/yuz-germe' },
-    { name: 'Göz Kapağı Estetiği', path: '/uzmanlik/goz-kapagi-estetigi' },
-    { name: 'Botoks Uygulaması', path: '/uzmanlik/botoks' },
-    { name: 'Dolgu Uygulaması', path: '/uzmanlik/dolgu' },
-    { name: 'Saç Ekimi', path: '/uzmanlik/sac-ekimi' },
-    { name: 'Meme Dikleştirme', path: '/uzmanlik/meme-diklestirme' },
-    { name: 'Vücut Kontürü', path: '/uzmanlik/vucut-konturu' }
+    { key: 'rinoplasty', path: '/uzmanlik/rinoplasti' },
+    { key: 'breastAugmentation', path: '/uzmanlik/meme-buyutme' },
+    { key: 'breastReduction', path: '/uzmanlik/meme-kucultme' },
+    { key: 'liposuction', path: '/uzmanlik/liposuction' },
+    { key: 'abdominoplasty', path: '/uzmanlik/karin-germe' },
+    { key: 'facelift', path: '/uzmanlik/yuz-germe' },
+    { key: 'blepharoplasty', path: '/uzmanlik/goz-kapagi-estetigi' },
+    { key: 'botox', path: '/uzmanlik/botoks' },
+    { key: 'filler', path: '/uzmanlik/dolgu' },
+    { key: 'hairTransplant', path: '/uzmanlik/sac-ekimi' },
+    { key: 'breastLift', path: '/uzmanlik/meme-diklestirme' },
+    { key: 'bodyContour', path: '/uzmanlik/vucut-konturu' }
   ];
 
   // Close dropdown when clicking outside
@@ -53,50 +59,10 @@ export default function Header() {
   // Reset scroll position and close menus on route change
   useEffect(() => {
     window.scrollTo(0, 0);
-    setIsHeaderVisible(true);
     setMobileMenuOpen(false);
     setSpecializationsOpen(false);
   }, [location.pathname]);
 
-  // Auto-hide header on scroll
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-    
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-          const scrollDifference = Math.abs(currentScrollY - lastScrollY);
-          
-          if (scrollDifference < 3) {
-            ticking = false;
-            return;
-          }
-          
-          if (currentScrollY > lastScrollY && currentScrollY > 120) {
-            if (isHeaderVisible) {
-              setIsHeaderVisible(false);
-            }
-          } else if (currentScrollY <= 5) {
-            if (!isHeaderVisible) {
-              setIsHeaderVisible(true);
-            }
-          }
-          
-          lastScrollY = currentScrollY;
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isHeaderVisible]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -132,43 +98,6 @@ export default function Header() {
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Top Header Bar */}
-      <div 
-        className={`bg-white border-b border-gray-200 transition-all duration-300 ${
-          !isHeaderVisible ? 'h-0 overflow-hidden opacity-0' : 'h-auto opacity-100'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-          <div className="flex flex-col sm:flex-row items-center justify-between py-4 sm:py-3 gap-3 sm:gap-0">
-            {/* Contact Info */}
-            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-8">
-              <div className="flex items-center space-x-3 text-sm sm:text-base">
-                <Phone className="w-5 h-5 text-[#2E8B57]" />
-                <a href="tel:+905353084466" className="hover:text-[#2E8B57] transition-colors font-medium text-gray-700">
-                  0535 308 44 66
-                </a>
-              </div>
-              <div className="flex items-center space-x-3 text-sm sm:text-base">
-                <Mail className="w-5 h-5 text-[#2E8B57]" />
-                <a href="mailto:info@demo.com" className="hover:text-[#2E8B57] transition-colors font-medium text-gray-700">
-                  info@demo.com
-                </a>
-              </div>
-            </div>
-
-            {/* CTA Button */}
-            <div className="flex-shrink-0">
-              <Link
-                to="/iletisim"
-                className="bg-[#2E8B57] text-white px-6 py-3 rounded-lg text-sm font-bold hover:bg-[#2E8B57]/90 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
-              >
-                Randevu Al
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         <div className="flex items-center justify-between py-4">
@@ -202,7 +131,7 @@ export default function Header() {
                 isActive('/doktor_web_2/') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
               }`}
             >
-              Ana Sayfa
+              {t('header.home')}
             </Link>
             <Link
               to="/hakkimda"
@@ -210,7 +139,7 @@ export default function Header() {
                 isActive('/doktor_web_2/hakkimda') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
               }`}
             >
-              Hakkımda
+              {t('header.about')}
             </Link>
             <Link
               to="/calismalar"
@@ -218,7 +147,7 @@ export default function Header() {
                 isActive('/calismalar') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
               }`}
             >
-              Çalışmalar
+              {t('header.works')}
             </Link>
             
             {/* Specializations Dropdown */}
@@ -231,14 +160,14 @@ export default function Header() {
                     : 'text-gray-900 hover:text-[#2E8B57]'
                 }`}
               >
-                Uzmanlık Alanlarım
+                {t('header.specializations')}
                 <ChevronDown className={`w-4 h-4 transition-transform ${specializationsOpen ? 'rotate-180' : ''}`} />
               </button>
               
               {specializationsOpen && (
                 <div className="absolute top-full left-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                   <div className="px-4 py-3 border-b border-gray-100">
-                    <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide">UZMANLIK ALANLARIM</h3>
+                    <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide">{t('header.specializations').toUpperCase()}</h3>
                   </div>
                   <div className="max-h-96 overflow-y-auto">
                     {specializations.map((spec, index) => (
@@ -258,7 +187,7 @@ export default function Header() {
                           <span className={`inline-block w-2 h-2 rounded-full mr-3 ${
                             isActive(spec.path) ? 'bg-blue-600' : 'bg-gray-400'
                           }`}></span>
-                          {spec.name}
+                          {t(`specializations.${spec.key}`)}
                         </Link>
                         {index < specializations.length - 1 && (
                           <div className="border-b border-gray-100 mx-4"></div>
@@ -276,7 +205,7 @@ export default function Header() {
                 isActive('/akademik') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
               }`}
             >
-              Akademik
+              {t('header.academic')}
             </Link>
             
             <Link
@@ -285,17 +214,37 @@ export default function Header() {
                 isActive('/blog') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
               }`}
             >
-              Blog
+              {t('header.blog')}
             </Link>
             
             <Link
-              to="/doktor_web_2/iletisim"
+              to="/iletisim"
               className={`text-sm font-medium transition-colors ${
                 isActive('/iletisim') ? 'text-[#2E8B57] font-bold' : 'text-gray-900 hover:text-[#2E8B57]'
               }`}
             >
-              İletişim
+              {t('header.appointment')}
             </Link>
+            
+            {/* Language Switcher */}
+            <div className="flex items-center gap-2 border-l border-gray-200 pl-4">
+              <button
+                onClick={() => changeLanguage('tr')}
+                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                  i18n.language === 'tr' ? 'bg-[#2E8B57] text-white' : 'text-gray-700 hover:text-[#2E8B57]'
+                }`}
+              >
+                TR
+              </button>
+              <button
+                onClick={() => changeLanguage('en')}
+                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                  i18n.language === 'en' ? 'bg-[#2E8B57] text-white' : 'text-gray-700 hover:text-[#2E8B57]'
+                }`}
+              >
+                EN
+              </button>
+            </div>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -315,26 +264,26 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
             >
-              Ana Sayfa
+              {t('header.home')}
             </Link>
             <Link
               to="/hakkimda"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
             >
-              Hakkımda
+              {t('header.about')}
             </Link>
             <Link
               to="/calismalar"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
             >
-              Çalışmalar
+              {t('header.works')}
             </Link>
             
             {/* Mobile Specializations */}
             <div className="border-t border-gray-200 pt-3">
-              <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3 px-2">UZMANLIK ALANLARIM</h3>
+              <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3 px-2">{t('header.specializations').toUpperCase()}</h3>
               <div className="space-y-1">
                 {specializations.map((spec) => (
                   <Link
@@ -353,7 +302,7 @@ export default function Header() {
                     <span className={`inline-block w-2 h-2 rounded-full mr-3 ${
                       isActive(spec.path) ? 'bg-blue-600' : 'bg-gray-400'
                     }`}></span>
-                    {spec.name}
+                    {t(`specializations.${spec.key}`)}
                   </Link>
                 ))}
               </div>
@@ -364,7 +313,7 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
             >
-              Akademik
+              {t('header.academic')}
             </Link>
             
             <Link
@@ -372,16 +321,37 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
             >
-              Blog
+              {t('header.blog')}
             </Link>
             
             <Link
-              to="/doktor_web_2/iletisim"
+              to="/iletisim"
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-medium text-gray-900 hover:text-[#2E8B57]"
             >
-              İletişim
+              {t('header.appointment')}
             </Link>
+            
+            {/* Mobile Language Switcher */}
+            <div className="flex items-center gap-3 pt-3 border-t border-gray-200">
+              <span className="text-sm font-medium text-gray-600">Dil / Language:</span>
+              <button
+                onClick={() => changeLanguage('tr')}
+                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                  i18n.language === 'tr' ? 'bg-[#2E8B57] text-white' : 'text-gray-700'
+                }`}
+              >
+                TR
+              </button>
+              <button
+                onClick={() => changeLanguage('en')}
+                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                  i18n.language === 'en' ? 'bg-[#2E8B57] text-white' : 'text-gray-700'
+                }`}
+              >
+                EN
+              </button>
+            </div>
           </div>
         )}
       </div>

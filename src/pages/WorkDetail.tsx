@@ -120,15 +120,15 @@ export default function WorkDetail() {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section 
-        className="relative h-96 flex items-center justify-center overflow-hidden"
+        className="relative h-96 lg:h-[500px] flex items-center justify-center overflow-hidden"
         style={{
           backgroundImage: `url('${work.images[0]}')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
+          backgroundPosition: 'center 25%',
+          backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="absolute inset-0 bg-[#2E8B57]/30" />
+        <div className="absolute inset-0 bg-[#2E8B57]/40" />
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <motion.h1 
             className="text-4xl md:text-5xl font-bold mb-4"

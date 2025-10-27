@@ -2,22 +2,11 @@ import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-interface SpecializationData {
-  title: string;
-  description: string;
-  image: string;
-  content: {
-    nedir: string;
-    belirtiler: string[];
-    takipEdilenHastaliklar: string[];
-  };
-}
-
-const specializationsData: Record<string, SpecializationData> = {
+// Static data without translations
+const specializationsStaticData = {
   'rinoplasti': {
-    title: 'BURUN ESTETİĞİ (RİNOPLASTİ)',
-    description: 'Burun estetiği ile doğal ve estetik bir burun görünümü elde edin.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/bntdvsi.webp`,
     content: {
       nedir: 'Rinoplasti, burnun şeklini ve boyutunu değiştirmek için yapılan estetik cerrahi işlemidir. Modern tekniklerle doğal ve estetik sonuçlar elde edilir.',
@@ -36,8 +25,6 @@ const specializationsData: Record<string, SpecializationData> = {
     }
   },
   'liposuction': {
-    title: 'LİPOSUCTİON (YAĞ ALDIRMA)',
-    description: 'Modern ve kanıta dayalı yöntemlerle kişiye özel tedavi planlaması yapılan uzmanlık alanımız.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/alnskllndrme.webp`,
     content: {
       nedir: 'Liposuction, vücuttaki fazla yağ dokusunun cerrahi yöntemlerle alınması işlemidir. Modern teknoloji ve uzman cerrahi tekniklerle güvenli bir şekilde uygulanır.',
@@ -54,8 +41,6 @@ const specializationsData: Record<string, SpecializationData> = {
     }
   },
   'meme-buyutme': {
-    title: 'MEME BÜYÜTME',
-    description: 'Meme büyütme operasyonu ile doğal ve estetik görünüm elde edin.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/cltbkm.webp`,
     content: {
       nedir: 'Meme büyütme operasyonu, meme boyutunu artırmak için silikon implantların kullanıldığı estetik cerrahi işlemidir.',
@@ -74,8 +59,6 @@ const specializationsData: Record<string, SpecializationData> = {
     }
   },
   'meme-kucultme': {
-    title: 'MEME KÜÇÜLTME',
-    description: 'Meme küçültme operasyonu ile daha konforlu ve estetik görünüm elde edin.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/cltbkm.webp`,
     content: {
       nedir: 'Meme küçültme operasyonu, memelerin boyutunu azaltmak ve şeklini düzeltmek için yapılan estetik cerrahi işlemidir.',
@@ -94,8 +77,6 @@ const specializationsData: Record<string, SpecializationData> = {
     }
   },
   'karin-germe': {
-    title: 'KARIN GERME (ABDOMİNOPLASTİ)',
-    description: 'Karın germe operasyonu ile daha düz ve sıkı bir karın elde edin.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/alnskllndrme.webp`,
     content: {
       nedir: 'Abdominoplasti, karın bölgesindeki fazla deri ve yağ dokusunun alınması ve karın kaslarının sıkılaştırılması işlemidir.',
@@ -114,8 +95,6 @@ const specializationsData: Record<string, SpecializationData> = {
     }
   },
   'yuz-germe': {
-    title: 'YÜZ GERME',
-    description: 'Yüz germe operasyonu ile daha genç ve dinç bir görünüm elde edin.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/frksynellazer.webp`,
     content: {
       nedir: 'Yüz germe operasyonu, yüzdeki sarkma ve kırışıklıkları gidermek için yapılan estetik cerrahi işlemidir.',
@@ -134,8 +113,6 @@ const specializationsData: Record<string, SpecializationData> = {
     }
   },
   'goz-kapagi-estetigi': {
-    title: 'GÖZ KAPAĞI ESTETİĞİ',
-    description: 'Göz kapağı estetiği ile daha genç ve dinç bir göz görünümü elde edin.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/frksynellazer.webp`,
     content: {
       nedir: 'Göz kapağı estetiği, üst ve alt göz kapaklarındaki fazla deri ve yağ dokusunun alınması işlemidir.',
@@ -154,8 +131,6 @@ const specializationsData: Record<string, SpecializationData> = {
     }
   },
   'botoks': {
-    title: 'BOTOKS UYGULAMASI',
-    description: 'Botoks uygulaması ile yaşlanma belirtilerini geciktirin ve daha genç görünün.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/frksynellazer.webp`,
     content: {
       nedir: 'Botoks, kas aktivitesini geçici olarak azaltarak kırışıklıkları önleyen ve mevcut kırışıklıkları azaltan bir uygulamadır.',
@@ -174,8 +149,6 @@ const specializationsData: Record<string, SpecializationData> = {
     }
   },
   'dolgu': {
-    title: 'DOLGU UYGULAMASI',
-    description: 'Dolgu uygulaması ile yüz hatlarınızı belirginleştirin ve daha genç görünün.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/frksynellazer.webp`,
     content: {
       nedir: 'Dolgu uygulaması, hyaluronik asit içeren maddelerle yüz hatlarını belirginleştiren ve kırışıklıkları dolduran işlemdir.',
@@ -194,8 +167,6 @@ const specializationsData: Record<string, SpecializationData> = {
     }
   },
   'sac-ekimi': {
-    title: 'SAÇ EKİMİ',
-    description: 'Saç ekimi ile doğal ve kalıcı saç çizgisi elde edin.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/alnskllndrme.webp`,
     content: {
       nedir: 'Saç ekimi, saç dökülmesi olan bölgelere sağlıklı saç köklerinin nakledilmesi işlemidir.',
@@ -214,8 +185,6 @@ const specializationsData: Record<string, SpecializationData> = {
     }
   },
   'meme-diklestirme': {
-    title: 'MEME DİKLEŞTİRME',
-    description: 'Meme dikleştirme operasyonu ile daha genç ve dik memeler elde edin.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/cltbkm.webp`,
     content: {
       nedir: 'Meme dikleştirme operasyonu, sarkmış memeleri yukarı kaldırarak daha genç ve dik görünüm sağlayan işlemdir.',
@@ -234,8 +203,6 @@ const specializationsData: Record<string, SpecializationData> = {
     }
   },
   'vucut-konturu': {
-    title: 'VÜCUT KONTÜRÜ',
-    description: 'Vücut kontürü operasyonu ile ideal vücut şeklinizi elde edin.',
     image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/alnskllndrme.webp`,
     content: {
       nedir: 'Vücut kontürü operasyonu, vücudun çeşitli bölgelerindeki fazla yağ ve deriyi alarak daha estetik bir görünüm sağlayan işlemdir.',
@@ -257,21 +224,100 @@ const specializationsData: Record<string, SpecializationData> = {
 
 export default function SpecializationPage() {
   const { specialization } = useParams<{ specialization: string }>();
+  const { t } = useTranslation();
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
   
-  if (!specialization || !specializationsData[specialization]) {
+  // Get data with translated titles and descriptions
+  const getTranslatedData = () => ({
+    'rinoplasti': {
+      title: t('specialization.rhinoplasty.title'),
+      description: t('specialization.rhinoplasty.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/bntdvsi.webp`,
+      content: specializationsStaticData['rinoplasti'].content
+    },
+    'liposuction': {
+      title: t('specialization.liposuction.title'),
+      description: t('specialization.liposuction.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/alnskllndrme.webp`,
+      content: specializationsStaticData['liposuction'].content
+    },
+    'meme-buyutme': {
+      title: t('specialization.breastAugmentation.title'),
+      description: t('specialization.breastAugmentation.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/cltbkm.webp`,
+      content: specializationsStaticData['meme-buyutme'].content
+    },
+    'meme-kucultme': {
+      title: t('specialization.breastReduction.title'),
+      description: t('specialization.breastReduction.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/cltbkm.webp`,
+      content: specializationsStaticData['meme-kucultme'].content
+    },
+    'karin-germe': {
+      title: t('specialization.abdominoplasty.title'),
+      description: t('specialization.abdominoplasty.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/alnskllndrme.webp`,
+      content: specializationsStaticData['karin-germe'].content
+    },
+    'yuz-germe': {
+      title: t('specialization.facelift.title'),
+      description: t('specialization.facelift.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/frksynellazer.webp`,
+      content: specializationsStaticData['yuz-germe'].content
+    },
+    'goz-kapagi-estetigi': {
+      title: t('specialization.blepharoplasty.title'),
+      description: t('specialization.blepharoplasty.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/frksynellazer.webp`,
+      content: specializationsStaticData['goz-kapagi-estetigi'].content
+    },
+    'botoks': {
+      title: t('specialization.botox.title'),
+      description: t('specialization.botox.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/frksynellazer.webp`,
+      content: specializationsStaticData['botoks'].content
+    },
+    'dolgu': {
+      title: t('specialization.filler.title'),
+      description: t('specialization.filler.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/frksynellazer.webp`,
+      content: specializationsStaticData['dolgu'].content
+    },
+    'sac-ekimi': {
+      title: t('specialization.hairTransplant.title'),
+      description: t('specialization.hairTransplant.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/alnskllndrme.webp`,
+      content: specializationsStaticData['sac-ekimi'].content
+    },
+    'meme-diklestirme': {
+      title: t('specialization.breastLift.title'),
+      description: t('specialization.breastLift.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/cltbkm.webp`,
+      content: specializationsStaticData['meme-diklestirme'].content
+    },
+    'vucut-konturu': {
+      title: t('specialization.bodyContour.title'),
+      description: t('specialization.bodyContour.description'),
+      image: `${import.meta.env.BASE_URL}images/hizmetlerimiz_image/alnskllndrme.webp`,
+      content: specializationsStaticData['vucut-konturu'].content
+    }
+  });
+  
+  const translatedData = getTranslatedData() as Record<string, any>;
+  
+  if (!specialization || !translatedData[specialization]) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Sayfa Bulunamadı</h1>
-          <p className="text-lg text-gray-600">Aradığınız sayfa mevcut değil.</p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('specialization.pageNotFound')}</h1>
+          <p className="text-lg text-gray-600">{t('specialization.pageNotFoundDesc')}</p>
         </div>
       </div>
     );
   }
 
-  const data = specializationsData[specialization];
+  const data = translatedData[specialization];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
@@ -285,9 +331,9 @@ export default function SpecializationPage() {
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-6 text-center">Uzmanlık Alanları</h3>
+              <h3 className="text-lg font-bold text-gray-900 mb-6 text-center">{t('specialization.sidebarTitle')}</h3>
               <div className="space-y-2">
-                {Object.entries(specializationsData).map(([key, data], index) => (
+                {Object.entries(translatedData).map(([key, data], index) => (
                   <motion.div
                     key={key}
                     initial={{ opacity: 0, x: -20 }}
@@ -365,7 +411,7 @@ export default function SpecializationPage() {
             <motion.img 
               src={data.image} 
               alt={data.title}
-              className={`w-full h-96 sm:h-[500px] object-cover transition-all duration-700 group-hover:scale-105 ${
+              className={`w-full h-96 sm:h-[500px] object-cover object-center transition-all duration-700 group-hover:scale-105 ${
                 imageLoading ? 'opacity-0 absolute' : 'opacity-100'
               }`}
               whileHover={{ scale: 1.05 }}
@@ -422,7 +468,7 @@ export default function SpecializationPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">NEDİR?</h2>
+              <h2 className="text-2xl font-bold text-gray-900">{t('specialization.whatIs')}</h2>
             </div>
             <p className="text-gray-700 leading-relaxed text-lg">
               {data.content.nedir}
@@ -442,10 +488,10 @@ export default function SpecializationPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">BELİRTİLER</h2>
+              <h2 className="text-2xl font-bold text-gray-900">{t('specialization.symptoms')}</h2>
             </div>
             <ul className="text-gray-700 space-y-3">
-              {data.content.belirtiler.map((item, index) => (
+              {data.content.belirtiler.map((item: string, index: number) => (
                 <motion.li 
                   key={index}
                   className="flex items-start"
@@ -473,10 +519,10 @@ export default function SpecializationPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">TAKİP EDİLEN HASTALIKLAR</h2>
+              <h2 className="text-2xl font-bold text-gray-900">{t('specialization.trackedDiseases')}</h2>
             </div>
             <ul className="text-gray-700 space-y-3">
-              {data.content.takipEdilenHastaliklar.map((item, index) => (
+              {data.content.takipEdilenHastaliklar.map((item: string, index: number) => (
                 <motion.li 
                   key={index}
                   className="flex items-start"
@@ -505,7 +551,7 @@ export default function SpecializationPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.8 }}
           >
-            Randevu Alın
+            {t('specialization.appointmentCTA')}
           </motion.h2>
           <motion.p 
             className="text-xl mb-8 max-w-2xl mx-auto"
@@ -513,7 +559,7 @@ export default function SpecializationPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 2 }}
           >
-            Uzman doktorumuzla görüşmek ve detaylı bilgi almak için randevu alabilirsiniz.
+            {t('specialization.appointmentCTADesc')}
           </motion.p>
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -526,7 +572,7 @@ export default function SpecializationPage() {
               to="/iletisim"
               className="inline-block bg-white text-[#2E8B57] px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
-              Randevu Al
+{t('common.appointment')}
             </Link>
           </motion.div>
         </motion.div>

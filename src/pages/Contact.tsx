@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MapPin, Clock, Phone } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface FormData {
   name: string;
@@ -12,6 +12,7 @@ interface FormData {
 }
 
 export default function Contact() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -46,23 +47,23 @@ export default function Contact() {
     const errors: {[key: string]: string} = {};
     
     if (!formData.name.trim()) {
-      errors.name = 'Ad Soyad gereklidir';
+      errors.name = t('contact.fullNameRequired');
     }
     
     if (!formData.email.trim()) {
-      errors.email = 'E-posta gereklidir';
+      errors.email = t('contact.emailRequired');
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = 'Geçerli bir e-posta adresi giriniz';
+      errors.email = t('contact.emailInvalid');
     }
     
     if (!formData.phone.trim()) {
-      errors.phone = 'Telefon numarası gereklidir';
+      errors.phone = t('contact.phoneRequired');
     } else if (!/^[0-9+\-\s()]+$/.test(formData.phone)) {
-      errors.phone = 'Geçerli bir telefon numarası giriniz';
+      errors.phone = t('contact.phoneInvalid');
     }
     
     if (!formData.service) {
-      errors.service = 'Hizmet seçimi gereklidir';
+      errors.service = t('contact.serviceRequired');
     }
     
     setFormErrors(errors);
@@ -119,18 +120,18 @@ export default function Contact() {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section 
-        className="relative h-96 flex items-center justify-center overflow-hidden"
+        className="relative h-96 lg:h-[500px] flex items-center justify-center overflow-hidden"
         style={{
           backgroundImage: `url('${import.meta.env.BASE_URL}images/doktor_resim_2.webp')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
+          backgroundPosition: 'center 25%',
+          backgroundRepeat: 'no-repeat'
         }}
       >
         <div className="absolute inset-0 bg-black/20" />
         <div className="relative z-10 text-center text-white px-4">
-          <h1 className="text-5xl md:text-6xl font-black mb-4">İletişim</h1>
-          <p className="text-xl md:text-2xl text-gray-200">Randevu almak veya sorularınız için bizimle iletişime geçin</p>
+          <h1 className="text-5xl md:text-6xl font-black mb-4">{t('contact.title')}</h1>
+          <p className="text-xl md:text-2xl text-gray-200">{t('contact.subtitle')}</p>
         </div>
       </section>
 
@@ -140,7 +141,7 @@ export default function Contact() {
           {/* İletişim Bilgileri */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">İletişim Bilgileri</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('contact.contactInfo')}</h2>
               
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -151,7 +152,7 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Adres</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">{t('contact.address')}</h3>
                     <p className="text-gray-600">Örnek Mahallesi, Estetik Caddesi No:123<br />Beşiktaş/İstanbul</p>
                   </div>
                 </div>
@@ -163,7 +164,7 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Telefon</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">{t('contact.phone')}</h3>
                     <p className="text-gray-600">+90 (212) 555 0123<br />+90 (532) 555 0123</p>
                   </div>
                 </div>
@@ -175,7 +176,7 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">E-posta</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">{t('contact.email')}</h3>
                     <p className="text-gray-600">info@drelifaydin.com<br />randevu@drelifaydin.com</p>
                   </div>
                 </div>
@@ -187,7 +188,7 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Çalışma Saatleri</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">{t('footer.hours')}</h3>
                     <p className="text-gray-600">
                       Pazartesi - Cuma: 09:00 - 18:00<br />
                       Cumartesi: 09:00 - 15:00<br />
@@ -213,13 +214,13 @@ export default function Contact() {
           {/* Randevu Formu */}
           <div>
             <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Randevu Talep Formu</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">{t('contact.appointmentForm')}</h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Ad Soyad *
+                    {t('contact.fullName')} *
                   </label>
                   <input
                     type="text"
@@ -229,14 +230,14 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleInputChange}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#2E8B57] focus:border-transparent ${formErrors.name ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="Adınız ve soyadınız"
+                    placeholder={t('contact.fullNamePlaceholder')}
                   />
                   {formErrors.name && <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>}
                 </div>
 
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                    Telefon *
+                    {t('contact.phoneNumber')} *
                   </label>
                   <input
                     type="tel"
@@ -246,7 +247,7 @@ export default function Contact() {
                     value={formData.phone}
                     onChange={handleInputChange}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#2E8B57] focus:border-transparent ${formErrors.phone ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="Telefon numaranız"
+                    placeholder={t('contact.phonePlaceholder')}
                   />
                   {formErrors.phone && <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>}
                 </div>
@@ -254,7 +255,7 @@ export default function Contact() {
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  E-posta
+                  {t('contact.emailAddress')}
                 </label>
                 <input
                   type="email"
@@ -263,14 +264,14 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleInputChange}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#2E8B57] focus:border-transparent ${formErrors.email ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="E-posta adresiniz"
+                    placeholder={t('contact.emailPlaceholder')}
                   />
                   {formErrors.email && <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>}
               </div>
 
               <div>
                 <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
-                  İlgilendiğiniz Hizmet *
+                  {t('contact.service')} *
                 </label>
                 <select
                   id="service"
@@ -280,7 +281,7 @@ export default function Contact() {
                   onChange={handleInputChange}
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#2E8B57] focus:border-transparent ${formErrors.service ? 'border-red-500' : 'border-gray-300'}`}
                 >
-                  <option value="">Hizmet seçiniz</option>
+                  <option value="">{t('contact.selectService')}</option>
                   {services.map((service, index) => (
                     <option key={index} value={service}>{service}</option>
                   ))}
@@ -291,7 +292,7 @@ export default function Contact() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="appointmentDate" className="block text-sm font-medium text-gray-700 mb-2">
-                    Tercih Edilen Tarih
+                    {t('contact.date')}
                   </label>
                   <input
                     type="date"
@@ -305,7 +306,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="appointmentTime" className="block text-sm font-medium text-gray-700 mb-2">
-                    Tercih Edilen Saat
+                    {t('contact.time')}
                   </label>
                   <select
                     id="appointmentTime"
@@ -314,7 +315,7 @@ export default function Contact() {
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2E8B57] focus:border-transparent"
                   >
-                    <option value="">Saat seçiniz</option>
+                    <option value="">{t('contact.timePlaceholder')}</option>
                     <option value="09:00">09:00</option>
                     <option value="10:00">10:00</option>
                     <option value="11:00">11:00</option>
@@ -330,7 +331,7 @@ export default function Contact() {
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Mesajınız
+                  {t('contact.message')}
                 </label>
                 <textarea
                   id="message"
@@ -339,7 +340,7 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2E8B57] focus:border-transparent"
-                  placeholder="Eklemek istediğiniz notlar..."
+                  placeholder={t('contact.messagePlaceholder')}
                 />
               </div>
 
@@ -352,13 +353,13 @@ export default function Contact() {
                     : 'bg-[#2E8B57] hover:bg-[#2E8B57]/90 hover:scale-105'
                 } text-white`}
               >
-                {isSubmitting ? 'Gönderiliyor...' : 'Randevu Talebini Gönder'}
+                {isSubmitting ? t('contact.submitting') : t('contact.submit')}
               </button>
               
               {submitStatus === 'success' && (
                 <div className="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                  <p className="font-semibold">✅ Randevu talebiniz başarıyla gönderildi!</p>
-                  <p className="text-sm">En kısa sürede sizinle iletişime geçeceğiz.</p>
+                  <p className="font-semibold">✅ {t('contact.success')}</p>
+                  <p className="text-sm">{t('contact.successMessage')}</p>
                 </div>
               )}
               

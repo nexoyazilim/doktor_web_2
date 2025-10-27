@@ -2,34 +2,32 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AnimatedSection, StaggeredContainer, StaggeredItem } from '../components/animations/AnimatedSection';
 import { useTypingAnimation } from '../hooks/useScrollAnimation';
-
-const heroData = {
-  url: `${import.meta.env.BASE_URL}images/alt_resim.webp`,
-  title: "Dr. Elif Aydın",
-  subtitle: "Plastik ve Rekonstrüktif Cerrahi Uzmanı",
-  description: "Hayalinizdeki estetik görünüme, güvenilir ve deneyimli bir profesyonelle ulaşın."
-};
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
+  const { t } = useTranslation();
+  const heroData = {
+    url: `${import.meta.env.BASE_URL}images/alt_resim.webp`,
+    title: t('hero.title'),
+    subtitle: t('hero.subtitle'),
+    description: t('hero.description')
+  };
   const { displayText: titleText } = useTypingAnimation(heroData.title, 150);
 
   return (
     <div className="flex-1">
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
-        {/* Background Image with Ken Burns Effect */}
-        <motion.div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat ken-burns"
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("${heroData.url}")`
+            backgroundImage: `url("${heroData.url}")`
           }}
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 20, ease: "linear" }}
         />
         
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/30" />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/50" />
         
         {/* Content */}
         <div className="relative z-10 text-center text-white px-3 sm:px-4 max-w-4xl mx-auto">
@@ -86,7 +84,7 @@ export default function Home() {
                   to="/iletisim"
                   className="block w-full bg-[#2E8B57] hover:bg-[#2E8B57]/90 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-bold transition-all duration-300 magnetic-hover text-center"
                 >
-                  Randevu Al
+                  {t('common.appointment')}
                 </Link>
               </motion.div>
               
@@ -100,7 +98,7 @@ export default function Home() {
                   to="/hakkimda"
                   className="block w-full border-2 border-white text-white hover:bg-white hover:text-gray-900 px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-bold transition-all duration-300 magnetic-hover text-center"
                 >
-                  Hakkımda
+                  {t('common.aboutMe')}
                 </Link>
               </motion.div>
             </motion.div>
@@ -140,17 +138,17 @@ export default function Home() {
                   transition={{ duration: 0.8 }}
                 >
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                    Estetik Cerrahi Yaklaşımım
+                    {t('home.approach')}
                   </h2>
                   <div className="space-y-4 text-gray-600">
                     <p className="text-lg leading-relaxed">
-                      Estetik cerrahi, sadece fiziksel değişim değil, aynı zamanda kişinin kendine olan güvenini artıran ve yaşam kalitesini yükselten bir sanattır. 20 yılı aşkın deneyimim boyunca, her hastanın benzersiz anatomik yapısını ve estetik beklentilerini dikkate alarak, doğal ve uyumlu sonuçlar elde etmeyi hedefledim.
+                      {t('home.approachDescription')}
                     </p>
                     <p className="text-lg leading-relaxed">
-                      Modern cerrahi tekniklerin yanı sıra, minimal invaziv yaklaşımları da tercih ederek, hastalarımın daha hızlı iyileşme süreci yaşamalarını sağlıyorum. Burun estetiğinden meme cerrahisine, yüz gençleştirmeden vücut kontürüne kadar geniş bir yelpazede hizmet veriyorum.
+                      {t('home.approachDescription2')}
                     </p>
                     <p className="text-lg leading-relaxed">
-                      Her operasyon öncesi detaylı konsültasyon yaparak, hastalarımın beklentilerini anlıyor ve gerçekçi sonuçlar hakkında bilgilendiriyorum. Amacım, sadece güzel görünmek değil, aynı zamanda sağlıklı ve fonksiyonel sonuçlar elde etmektir.
+                      {t('home.approachDescription3')}
                     </p>
                   </div>
                 </motion.div>
@@ -220,17 +218,17 @@ export default function Home() {
                   transition={{ duration: 0.8 }}
                 >
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                    Hasta Odaklı Yaklaşımım
+                    {t('home.patientApproach')}
                   </h2>
                   <div className="space-y-4 text-gray-600">
                     <p className="text-lg leading-relaxed">
-                      Hastalarımla kurduğum iletişim, tedavi sürecinin en önemli parçasıdır. Her hasta için özel olarak tasarlanan tedavi planları, sadece cerrahi tekniklerle sınırlı kalmaz. Ameliyat öncesi psikolojik hazırlık, ameliyat sonrası bakım ve takip süreçleri de bu planın ayrılmaz parçalarıdır.
+                      {t('home.patientApproachDescription')}
                     </p>
                     <p className="text-lg leading-relaxed">
-                      İlk konsültasyondan itibaren, hastalarımın beklentilerini ve endişelerini anlamaya odaklanıyorum. Her hastanın farklı bir hikayesi, farklı beklentileri ve farklı endişeleri vardır. Bu nedenle, standart bir yaklaşım yerine, her hasta için özelleştirilmiş bir tedavi planı hazırlıyorum.
+                      {t('home.patientApproachDescription2')}
                     </p>
                     <p className="text-lg leading-relaxed">
-                      Güvenlik ve kalite, çalışma prensiplerimin temelini oluşturur. Uluslararası standartlarda sterilizasyon, modern ameliyathane koşulları ve deneyimli ekibimle birlikte, en güvenli ortamı sağlıyorum. Ameliyat sonrası takip süreci de en az ameliyat kadar önemlidir.
+                      {t('home.patientApproachDescription3')}
                     </p>
                   </div>
                 </motion.div>
@@ -245,10 +243,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
           <AnimatedSection direction="up" className="text-center mb-12 sm:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Uzmanlık Alanlarım
+              {t('home.services')}
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-2">
-              Modern estetik cerrahi teknikleri ile hayalinizdeki görünüme kavuşun
+              {t('home.servicesSubtitle')}
             </p>
           </AnimatedSection>
 
@@ -330,7 +328,7 @@ export default function Home() {
                         to={service.link}
                         className="inline-block bg-[#2E8B57] hover:bg-[#2E8B57]/90 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 magnetic-hover"
                       >
-                        Detayları Gör
+                        {t('services.seeDetails')}
                       </Link>
                     </motion.div>
                   </div>
@@ -353,7 +351,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                Hakkımda
+                {t('home.about')}
               </motion.h2>
               <motion.p 
                 className="text-lg text-gray-600 mb-6"
@@ -362,8 +360,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                Plastik ve Rekonstrüktif Cerrahi alanında uzman doktor olarak, 
-                modern teknikler ve kişiye özel yaklaşımlarla hastalarıma en iyi hizmeti sunmaktayım.
+                {t('home.aboutDescription')}
               </motion.p>
               <motion.p 
                 className="text-lg text-gray-600 mb-8"
@@ -372,8 +369,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                Yılların deneyimi ve sürekli gelişen teknoloji ile birleşen uzmanlığım, 
-                her hasta için en uygun tedavi planını oluşturmamı sağlar.
+                {t('home.aboutDescription2')}
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -387,7 +383,7 @@ export default function Home() {
                   to="/hakkimda"
                   className="inline-block bg-[#2E8B57] hover:bg-[#2E8B57]/90 text-white px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 magnetic-hover"
                 >
-                  Daha Fazla Bilgi
+                  {t('home.moreInfo')}
                 </Link>
               </motion.div>
             </AnimatedSection>
@@ -424,10 +420,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection direction="up" className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Blog Yazılarım
+              {t('home.blog')}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Estetik cerrahi hakkında güncel bilgiler, uzman görüşleri ve hasta deneyimleri
+              {t('home.blogSubtitle')}
             </p>
           </AnimatedSection>
 
@@ -504,7 +500,7 @@ export default function Home() {
                         to={`/blog/${post.id}`}
                         className="text-[#2E8B57] font-semibold hover:text-[#2E8B57]/80 transition-colors flex items-center"
                       >
-                        Devamını Oku 
+                        {t('common.readMore')} 
                         <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
@@ -526,7 +522,7 @@ export default function Home() {
                 to="/blog"
                 className="inline-block bg-[#2E8B57] hover:bg-[#2E8B57]/90 text-white px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 magnetic-hover"
               >
-                Tüm Blog Yazılarını Gör
+                {t('home.allPosts')}
               </Link>
             </motion.div>
           </AnimatedSection>
@@ -544,7 +540,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              Hayalinizdeki Görünüme Kavuşun
+              {t('home.cta')}
             </motion.h2>
             <motion.p 
               className="text-base sm:text-lg md:text-xl mb-8 max-w-3xl mx-auto px-4 leading-relaxed"
@@ -553,8 +549,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Uzman ekibimizle birlikte, güvenli ve etkili estetik cerrahi çözümleri sunuyoruz. 
-              Randevu alarak ücretsiz konsültasyon için bizimle iletişime geçin.
+              {t('home.ctaDescription')}
             </motion.p>
             <motion.div 
               className="flex flex-col sm:flex-row gap-4 justify-center px-4"
@@ -572,7 +567,7 @@ export default function Home() {
                   to="/iletisim"
                   className="bg-white text-[#2E8B57] hover:bg-gray-100 px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-bold transition-all duration-300 magnetic-hover w-full sm:w-auto text-center"
                 >
-                  Randevu Al
+                  {t('home.appointmentButton')}
                 </Link>
               </motion.div>
               

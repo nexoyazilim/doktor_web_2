@@ -1,43 +1,18 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, Facebook, Youtube, Instagram, Linkedin } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
+  const { t } = useTranslation();
+  
   return (
     <footer className="bg-gray-900 text-white">
-      {/* Üst Bilgi Çubuğu */}
-      <div className="bg-gray-800 text-gray-200 py-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <MapPin className="w-5 h-5" />
-              <span className="font-semibold">ATAŞEHİR İSTANBUL</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="w-5 h-5" />
-              <span className="font-semibold">BANA ULAŞIN</span>
-              <span className="bg-gray-700 px-3 py-1 rounded-full font-bold">0535 308 44 66</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 bg-red-500 rounded-full animate-pulse"></div>
-              <span className="font-semibold">BANA ULAŞABİLİRSİNİZ</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Ana Footer İçeriği */}
       <div className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-4 gap-8">
-            {/* Sol Kolon - Doktor Resmi ve Tanıtım */}
-            <div className="lg:col-span-1">
-              <div className="mb-6">
-                <img
-                  src={`${import.meta.env.BASE_URL}images/doktor_1.webp`}
-                  alt="Dr. Elif Aydın"
-                  className="w-full h-64 object-cover rounded-2xl shadow-lg"
-                />
-              </div>
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Sol Kolon - Tanıtım ve Sosyal Medya */}
+            <div>
               <div className="mb-6">
                 <h3 className="text-xl font-bold mb-3">Dr. Elif Aydın</h3>
                 <p className="text-gray-300 leading-relaxed">
@@ -48,7 +23,7 @@ export default function Footer() {
               
               {/* Sosyal Medya */}
               <div>
-                <h4 className="text-lg font-semibold mb-4">Beni Sosyal Medyada Takip Edin</h4>
+                <h4 className="text-lg font-semibold mb-4">{t('footer.follow')}</h4>
                 <div className="flex gap-3">
                   <a href="#" className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
                     <Facebook className="w-5 h-5" />
@@ -68,41 +43,36 @@ export default function Footer() {
 
             {/* Menü Kolonu */}
             <div>
-              <h4 className="text-xl font-bold mb-6">MENÜ</h4>
+              <h4 className="text-xl font-bold mb-6">{t('footer.menu')}</h4>
               <ul className="space-y-3">
                 <li>
                   <Link to="/hakkimda" className="text-gray-300 hover:text-white transition-colors">
-                    Hakkımda
+                    {t('footer.about')}
                   </Link>
                 </li>
                 <li>
                   <Link to="/akademik" className="text-gray-300 hover:text-white transition-colors">
-                    Akademik
+                    {t('footer.academic')}
                   </Link>
                 </li>
                 <li>
                   <Link to="/uzmanlik/rinoplasti" className="text-gray-300 hover:text-white transition-colors">
-                    Uzmanlık Alanlarım
+                    {t('footer.specializations')}
                   </Link>
                 </li>
                 <li>
                   <Link to="/blog" className="text-gray-300 hover:text-white transition-colors">
-                    Blog
+                    {t('footer.blog')}
                   </Link>
                 </li>
                 <li>
                   <Link to="/calismalar" className="text-gray-300 hover:text-white transition-colors">
-                    Fotoğraf Galerisi
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/calismalar" className="text-gray-300 hover:text-white transition-colors">
-                    Video Galerisi
+                    {t('footer.photoGallery')}
                   </Link>
                 </li>
                 <li>
                   <Link to="/iletisim" className="text-gray-300 hover:text-white transition-colors">
-                    İletişim
+                    {t('footer.contact')}
                   </Link>
                 </li>
               </ul>
@@ -110,13 +80,13 @@ export default function Footer() {
 
             {/* İletişim Kolonu */}
             <div>
-              <h4 className="text-xl font-bold mb-6">İLETİŞİM</h4>
+              <h4 className="text-xl font-bold mb-6">{t('footer.contactTitle')}</h4>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <Phone className="w-5 h-5 text-gray-400 mt-1" />
                   <div>
                     <p className="text-blue-100">
-                      <span className="font-semibold">Gsm:</span> 0535 308 44 66
+                      <span className="font-semibold">{t('footer.phone')}</span> 0535 308 44 66
                     </p>
                   </div>
                 </div>
@@ -125,7 +95,7 @@ export default function Footer() {
                   <Mail className="w-5 h-5 text-gray-400 mt-1" />
                   <div>
                     <p className="text-blue-100">
-                      <span className="font-semibold">Email:</span> info@demo.com
+                      <span className="font-semibold">{t('footer.email')}</span> info@demo.com
                     </p>
                   </div>
                 </div>
@@ -134,7 +104,7 @@ export default function Footer() {
                   <MapPin className="w-5 h-5 text-gray-400 mt-1" />
                   <div>
                     <p className="text-blue-100">
-                      <span className="font-semibold">Adres:</span> Ataşehir/İstanbul
+                      <span className="font-semibold">{t('footer.address')}</span> Ataşehir/İstanbul
                     </p>
                   </div>
                 </div>
@@ -143,71 +113,14 @@ export default function Footer() {
                   <Clock className="w-5 h-5 text-gray-400 mt-1" />
                   <div>
                     <p className="text-blue-100">
-                      <span className="font-semibold">Çalışma:</span> Pzt - Cum 08.30 - 22.00
+                      <span className="font-semibold">{t('footer.hours')}</span> {t('footer.hoursWeekdays')}
                     </p>
                     <p className="text-blue-100">
-                      <span className="font-semibold">Çalışma:</span> Cts - Pzr 10.00 - 18.00
+                      <span className="font-semibold">{t('footer.hours')}</span> {t('footer.hoursWeekend')}
                     </p>
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Uzmanlık Alanları Kolonu */}
-            <div>
-              <h4 className="text-xl font-bold mb-6">UZMANLIK ALANLARI</h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link to="/uzmanlik/rinoplasti" className="text-gray-300 hover:text-white transition-colors">
-                    Burun Estetiği (Rinoplasti)
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/uzmanlik/meme-buyutme" className="text-gray-300 hover:text-white transition-colors">
-                    Meme Büyütme
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/uzmanlik/meme-kucultme" className="text-gray-300 hover:text-white transition-colors">
-                    Meme Küçültme
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/uzmanlik/liposuction" className="text-gray-300 hover:text-white transition-colors">
-                    Liposuction (Yağ Aldırma)
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/uzmanlik/karin-germe" className="text-gray-300 hover:text-white transition-colors">
-                    Karın Germe (Abdominoplasti)
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/uzmanlik/yuz-germe" className="text-gray-300 hover:text-white transition-colors">
-                    Yüz Germe
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/uzmanlik/goz-kapagi-estetigi" className="text-gray-300 hover:text-white transition-colors">
-                    Göz Kapağı Estetiği
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/uzmanlik/botoks" className="text-gray-300 hover:text-white transition-colors">
-                    Botoks Uygulaması
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/uzmanlik/dolgu" className="text-gray-300 hover:text-white transition-colors">
-                    Dolgu Uygulaması
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/uzmanlik/sac-ekimi" className="text-gray-300 hover:text-white transition-colors">
-                    Saç Ekimi
-                  </Link>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
@@ -218,17 +131,17 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 Dr. Elif Aydın. Tüm hakları saklıdır.
+              {t('footer.copyright')}
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Gizlilik Politikası
+                {t('footer.privacy')}
               </a>
               <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Kullanım Şartları
+                {t('footer.terms')}
               </a>
               <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                KVKK
+                {t('footer.kvkk')}
               </a>
             </div>
           </div>

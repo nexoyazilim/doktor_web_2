@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Eye, FileText, Calendar, ArrowRight, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function Works() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('calismalar');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -91,12 +93,12 @@ export default function Works() {
   ];
 
   const categories = [
-    { id: 'all', name: 'Tümü' },
-    { id: 'rinoplasti', name: 'Rinoplasti' },
-    { id: 'meme', name: 'Meme Estetiği' },
-    { id: 'yuz', name: 'Yüz Estetiği' },
-    { id: 'vucut', name: 'Vücut Estetiği' },
-    { id: 'rekonstruktif', name: 'Rekonstrüktif' }
+    { id: 'all', nameKey: 'works.all' },
+    { id: 'rinoplasti', nameKey: 'works.rinoplasti' },
+    { id: 'meme', nameKey: 'works.memeEstetiği' },
+    { id: 'yuz', nameKey: 'works.yuzEstetiği' },
+    { id: 'vucut', nameKey: 'works.vucutEstetiği' },
+    { id: 'rekonstruktif', nameKey: 'works.rekonstruktif' }
   ];
 
   const filteredWorks = selectedCategory === 'all' 
@@ -107,18 +109,18 @@ export default function Works() {
     <main className="flex-1">
       {/* Hero Section */}
       <section 
-        className="relative h-64 sm:h-80 lg:h-96 flex items-center justify-center overflow-hidden"
+        className="relative h-80 sm:h-96 lg:h-[500px] flex items-center justify-center overflow-hidden"
         style={{
           backgroundImage: `url('${import.meta.env.BASE_URL}images/doktor_resim_2.webp')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
+          backgroundPosition: 'center 25%',
+          backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center text-white px-3 sm:px-4">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-3 sm:mb-4">Çalışmalarım</h1>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200">Bilimsel araştırmalarım ve vaka çalışmalarım</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-3 sm:mb-4">{t('hero.works')}</h1>
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200">{t('hero.worksSubtitle')}</p>
         </div>
       </section>
 
@@ -136,8 +138,8 @@ export default function Works() {
             >
               <div className="flex items-center gap-1 sm:gap-2">
                 <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="hidden sm:inline">Çalışmalar</span>
-                <span className="sm:hidden">Çalışma</span>
+                <span className="hidden sm:inline">{t('works.works')}</span>
+                <span className="sm:hidden">{t('works.worksShort')}</span>
               </div>
             </button>
             <button
@@ -150,7 +152,7 @@ export default function Works() {
             >
               <div className="flex items-center gap-1 sm:gap-2">
                 <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
-                Yayınlar
+                {t('works.publications')}
               </div>
             </button>
           </div>
@@ -162,7 +164,7 @@ export default function Works() {
             <div className="mb-12">
               <div className="flex items-center gap-4 mb-6">
                 <Filter className="w-6 h-6 text-gray-600" />
-                <h3 className="text-lg font-semibold text-gray-900">Kategori Filtresi</h3>
+                <h3 className="text-lg font-semibold text-gray-900">{t('works.categoryFilter')}</h3>
               </div>
               <div className="flex flex-wrap gap-3">
                 {categories.map((category) => (
@@ -175,7 +177,7 @@ export default function Works() {
                         : 'bg-gray-100 text-gray-600 hover:bg-[#2E8B57]/10 hover:text-[#2E8B57]'
                     }`}
                   >
-                    {category.name}
+                    {t(category.nameKey)}
                   </button>
                 ))}
               </div>
@@ -201,7 +203,7 @@ export default function Works() {
                           ? 'bg-blue-500 text-white' 
                           : 'bg-green-500 text-white'
                       }`}>
-                        {work.type === 'vaka' ? 'Vaka Çalışması' : 'Araştırma'}
+                        {work.type === 'vaka' ? t('works.caseStudy') : t('works.research')}
                       </span>
                     </div>
                     <div className="absolute bottom-4 right-4 flex items-center gap-2 text-white text-sm">
@@ -221,7 +223,7 @@ export default function Works() {
                       to={`/calismalar/${work.id}`}
                       className="flex items-center gap-2 text-[#2E8B57] font-semibold hover:gap-3 transition-all duration-300"
                     >
-                      Detayları Gör
+                      {t('services.seeDetails')}
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
@@ -265,7 +267,7 @@ export default function Works() {
                   </div>
                   <div className="flex items-center">
                     <button className="bg-[#2E8B57] hover:bg-[#2E8B57]/90 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
-                      Oku
+                      {t('common.readMore')}
                     </button>
                   </div>
                 </div>
@@ -284,16 +286,16 @@ export default function Works() {
             backgroundAttachment: 'fixed'
           }}
         >
-          <h2 className="text-4xl font-bold mb-4">Çalışmalarım Hakkında Daha Fazla Bilgi</h2>
+          <h2 className="text-4xl font-bold mb-4">{t('works.ctaTitle')}</h2>
           <p className="text-xl mb-8 text-gray-200">
-            Detaylı bilgi almak veya işbirliği yapmak için benimle iletişime geçin
+            {t('works.ctaDescription')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-[#2E8B57] hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 transform hover:scale-105">
-              İletişime Geç
+              {t('common.appointment')}
             </button>
             <button className="border-2 border-white text-white hover:bg-white hover:text-[#2E8B57] px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 transform hover:scale-105">
-              CV İndir
+              {t('works.downloadCV')}
             </button>
           </div>
         </section>

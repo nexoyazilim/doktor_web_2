@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const academicPublications = [
   {
@@ -52,22 +53,24 @@ const academicPublications = [
 ];
 
 export default function Academic() {
+  const { t } = useTranslation();
+  
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section 
-        className="relative h-96 flex items-center justify-center overflow-hidden"
+        className="relative h-96 lg:h-[500px] flex items-center justify-center overflow-hidden"
         style={{
           backgroundImage: `url('${import.meta.env.BASE_URL}images/doktor_resim_2.webp')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
+          backgroundPosition: 'center 25%',
+          backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center text-white px-4">
-          <h1 className="text-5xl md:text-6xl font-black mb-4">Akademik</h1>
-          <p className="text-xl md:text-2xl text-gray-200">Bilimsel yayınlarım ve akademik çalışmalarım</p>
+          <h1 className="text-5xl md:text-6xl font-black mb-4">{t('hero.academic')}</h1>
+          <p className="text-xl md:text-2xl text-gray-200">{t('hero.academicSubtitle')}</p>
         </div>
       </section>
 
@@ -107,7 +110,7 @@ export default function Academic() {
                     to={`/akademik/makale/${publication.id}`}
                     className="text-[#2E8B57] font-semibold hover:text-[#2E8B57]/80 transition-colors"
                   >
-                    Makaleyi Oku →
+                    {t('common.readMore')} →
                   </Link>
                 </div>
               </div>
@@ -124,16 +127,16 @@ export default function Academic() {
             backgroundAttachment: 'fixed'
           }}
         >
-          <h2 className="text-4xl font-bold mb-6">Akademik Çalışmalarım</h2>
+          <h2 className="text-4xl font-bold mb-6">{t('academic.ctaTitle')}</h2>
           <p className="text-xl mb-8 text-gray-200 max-w-3xl mx-auto">
-            Estetik cerrahi alanındaki akademik çalışmalarım ve bilimsel katkılarım hakkında daha fazla bilgi almak için iletişime geçebilirsiniz.
+            {t('academic.ctaDescription')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-[#2E8B57] hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 transform hover:scale-105">
-              İletişime Geç
+              {t('common.appointment')}
             </button>
             <button className="border-2 border-white text-white hover:bg-white hover:text-[#2E8B57] px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 transform hover:scale-105">
-              CV İndir
+              {t('academic.downloadCV')}
             </button>
           </div>
         </div>
